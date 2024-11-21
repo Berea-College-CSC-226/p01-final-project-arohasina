@@ -10,6 +10,10 @@
   "i am a student in...": {
     "french": "je suis étudiant(e) en",
     "sentence": "je suis étudiant(e) en psychologie"
+  },
+  "his/her name is ...": {
+    "french": "il/elle s'appelle ...",
+    "sentence": "Elle s'appelle Marie"
   }
 
 }
