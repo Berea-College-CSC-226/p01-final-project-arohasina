@@ -6,7 +6,10 @@ Exclamation Marks indicate action items; you should remove these emoji as you co
   they accompany. (This means that your final README should have no  ️in it!)
 
 **Author(s)**: Arohasina Ravoahanginiaina
+
 **Google Doc Link**: https://docs.google.com/document/d/1jGpdXDdU7qafmN9_lEAigKttqIAKwALNgQ69IkVdbLk/edit?tab=t.0
+
+**repo link**: https://github.com/Berea-College-CSC-226/p01-final-project-arohasina
 
 ---
 
@@ -27,21 +30,11 @@ helped you, AI tools you've used, and any other resources that are not solely yo
 **Source Assignment(s)**: `HW05: Funky Functions, Fun Exams`
 
 **CRC Card(s)**:
-  - Create a CRC card for each class that your project will implement.
-  - See this link for a sample CRC card and a template to use for your own cards (you will have to make a copy to edit):
-    [CRC Card Example](https://docs.google.com/document/d/1JE_3Qmytk_JGztRqkPXWACJwciPH61VCx3idIlBCVFY/edit?usp=sharing)
-  - Tables in markdown are not easy, so we suggest saving your CRC card as an image and including the image(s) in the 
-    README. You can do this by saving an image in the repository and linking to it. See the sample CRC card below - 
-    and REPLACE it with your own:
 
 ![Flashcard Class](image/Flashcard_class.png)
 ![Quiz Class](image/Quiz_class.png)
 
-**Branches**: This project will **require** effective use of git. 
-
-Each partner should create a branch at the beginning of the project, and stay on this branch (or branches of their 
-branch) as they work. When you need to bring each others branches together, do so by merging each other's branches 
-into your own, following the process we've discussed in previous assignments: 
+**Branches**: 
 
 ```
     Branch 1 name: Arohasina
@@ -57,7 +50,14 @@ Reflect on what you’ve done so far. How’s it going? Are you feeling behind/a
 What has surprised you so far? Describe your general feelings. Be honest with yourself; this section is for you, not me.
 
 ```
-    **Replace this text with your reflection
+So far, I feel like I have a pretty good idea of what I’m supposed to do, mostly because I spent time planning and 
+breaking tasks into smaller steps. That really helped me get organized and gave me a clear direction.
+
+But honestly, I’m still feeling a bit anxious. Even though I know what needs to be done, I’m not always sure how to 
+turn those tasks into actual code.
+
+What worries me the most is getting stuck during implementation and not knowing how to fix it. 
+At the same time, I’ve been surprised by how much the planning has helped me feel less overwhelmed overall.
 ```
 
 ---
