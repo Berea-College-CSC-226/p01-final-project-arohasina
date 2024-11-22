@@ -12,18 +12,27 @@
 #
 #
 #################################################################################
+import json
+
 class Dictionary:
-    def __init__(self, word, translation, example_sentence):
-        pass
+    def __init__(self, filename):
+        try:
+            self.file_content = open(filename, 'r')
+            self.flashcard_data = json.load(self.file_content)
+            print(self.flashcard_data)
+        finally:
+            self.file_content.close()
+
 
 class Audio:
     pass
 
 class Flashcard:
-    def __init__(self, word, translation, example_sentence=""):
-        self.word=word
-        self.translation= translation
-        self.example_sentence= example_sentence
+    def __init__(self, word_key, dictionary):
+        word_data = dictionary.flashcard_data.get(word_key, {})
+        self.word = word_key
+        self.translation = word_data.get("french", "Translation not available")
+        self.example_sentence = word_data.get("sentence", "Example sentence not available")
 
     def display_word(self):
         return self.word
@@ -36,5 +45,11 @@ class Flashcard:
 
     def display(self):
         pass
+
+
+
+d= Dictionary("files/chapter_1_words.json")
+print(d.flashcard_data['my name is...']['french'])
+
 
 
