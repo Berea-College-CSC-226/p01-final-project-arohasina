@@ -38,11 +38,6 @@ class Flashcard:
         self.translation = word_data.get("french", "Translation not available")
         self.example_sentence = word_data.get("sentence", "Example sentence not available")
 
-    def display_flashcard(self):
-        return ("Word: {}\n"
-                "French Translation: {}\n"
-                "Example Sentence: {}").format(self.word, self.translation, self.example_sentence)
-
 
 class FlashcardApp:
     def __init__(self, root, dictionary):
