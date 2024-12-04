@@ -1,4 +1,3 @@
-#################################################################################
 # Author: Arohasina Ravohanginiaina
 # Username: Arohasina
 #
@@ -12,8 +11,10 @@
 #
 #
 #################################################################################
+
 from inspect import getframeinfo, stack
 from flashcard import *
+
 
 def unittest(did_pass):
     """
@@ -33,9 +34,44 @@ def unittest(did_pass):
 
 def flashcard_suite():
     """
-    The test_suite function utilizes the testit() function,
-    and is designed to test the flashcard() class.
+    The test_suite function utilizes the unittest() function,
+    and is designed to test the Flashcard, Dictionary, and FlashcardApp classes.
 
     :return: None
     """
-    pass
+
+    # Test 1: Testing the Dictionary class loading and content
+    print("Test 1: Testing the Dictionary class loading")
+    try:
+        dictionary = Dictionary("files/chapter_1_words.json")
+        unittest(dictionary.flashcard_data)  # Check if data was loaded
+    except Exception as e:
+        unittest(False)  # If error occurs, the test fails
+
+    # Test 2: Testing the Flashcard class initialization
+    print("Test 2: Testing the Flashcard class")
+    try:
+        dictionary = Dictionary("files/chapter_1_words.json")
+        flashcard = Flashcard("my name is...", dictionary)
+        unittest(flashcard.word == "my name is..." and flashcard.translation == "je m'appelle...")
+    except Exception as e:
+        unittest(False)  # If error occurs, the test fails
+
+
+    # Test 3: Testing FlashcardApp's start_flashcard method
+    print("Test 4: Testing the start_flashcard() method in FlashcardApp")
+    try:
+        dictionary = Dictionary("files/chapter_1_words.json")
+        root = tk.Tk()
+        app = FlashcardApp(root, dictionary)
+        app.start_flashcard()  # Test if this method works without errors
+        unittest(True)  # If no errors occur, the test passes
+    except Exception as e:
+        unittest(False)  # If error occurs, the test fails
+
+
+def main():
+    flashcard_suite()
+
+if __name__ == "__main__":
+    main()
