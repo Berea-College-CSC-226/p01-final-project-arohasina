@@ -62,8 +62,8 @@ def flashcard_suite():
     print("Test 4: Testing the start_flashcard() method in FlashcardApp")
     try:
         dictionary = Dictionary("files/chapter_1_words.json")
-        root = tk.Tk()
-        app = FlashcardApp(root, dictionary)
+        screen = tk.Tk()
+        app = FlashcardApp(screen, dictionary)
         app.start_flashcard()  # Test if this method works without errors
         unittest(True)  # If no errors occur, the test passes
     except Exception as e:
