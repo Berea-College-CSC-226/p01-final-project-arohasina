@@ -9,8 +9,9 @@
 #
 #################################################################################
 # Acknowledgements:
-#chat GPT for encoding='utf-8'
-#chat GPT for the method for widget in self.root.winfo_children():
+#chat GPT for: encoding='utf-8'
+#chat GPT for the method:
+# for widget in self.root.winfo_children():
 #        widget.destroy()
 #################################################################################
 import json
@@ -42,23 +43,6 @@ class Flashcard:
                 "French Translation: {}\n"
                 "Example Sentence: {}").format(self.word, self.translation, self.example_sentence)
 
-# Flashcard Interface
-
-class Homepage:
-    def __init__(self, root, start_flashcard):
-        self.root = root
-        self.start_flashcard= start_flashcard
-
-        # Home Page Title
-        title_label = tk.Label(self.root, text="Welcome to Level Up Your French", font=("Arial", 24, "bold"))
-        title_label.pack(pady=20)
-
-        # Home Page Buttons
-        start_button = tk.Button(self.root, text="Start Flashcards", font=("Arial", 16), command=self.start_flashcard)
-        start_button.pack(pady=10)
-
-        exit_button = tk.Button(self.root, text="Exit", font=("Arial", 16), command=self.root.quit)
-        exit_button.pack(pady=10)
 
 class FlashcardApp:
     def __init__(self, root, dictionary):
@@ -83,7 +67,7 @@ class FlashcardApp:
             widget.destroy()
 
         # Flashcard Display
-        self.flashcard_frame = tk.Frame(root)
+        self.flashcard_frame = tk.Frame(self.root)
         self.flashcard_frame.pack(pady=20)
 
         self.word_label = tk.Label(self.flashcard_frame, text="", font=("Arial", 24))
@@ -94,7 +78,7 @@ class FlashcardApp:
         self.example_label.pack()
 
         # Navigation Buttons
-        self.navigation_frame = tk.Frame(root)
+        self.navigation_frame = tk.Frame(self.root)
         self.navigation_frame.pack(pady=10)
 
         self.prev_button = tk.Button(self.navigation_frame, text="Previous", command=self.show_previous_card)
@@ -134,10 +118,18 @@ class FlashcardApp:
             messagebox.showinfo("Info", "This is the first flashcard!")
 
 
-# Load dictionary and start application
-dictionary = Dictionary("files/chapter_1_words.json")
+class Homepage:
+    def __init__(self, root, start_flashcard):
+        self.root = root
+        self.start_flashcard= start_flashcard
 
-# Create the main Tkinter window
-root = tk.Tk()
-app = FlashcardApp(root, dictionary)
-root.mainloop()
+        # Home Page Title
+        title_label = tk.Label(self.root, text="Welcome to Level Up Your French", font=("Arial", 24, "bold"))
+        title_label.pack(pady=20)
+
+        # Home Page Buttons
+        start_button = tk.Button(self.root, text="Start Flashcards", font=("Arial", 16), command=self.start_flashcard)
+        start_button.pack(pady=10)
+
+        exit_button = tk.Button(self.root, text="Exit", font=("Arial", 16), command=self.root.quit)
+        exit_button.pack(pady=10)

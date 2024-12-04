@@ -20,10 +20,15 @@ class MainProgram:
         """
         MainProgram class for handling the program logic.
         """
-        pass
+        # Load dictionary and start application
+        self.dictionary = Dictionary("files/chapter_1_words.json")
+
+        # Create the main Tkinter window
+        self.root = tk.Tk()
+        self.app = FlashcardApp(self.root, self.dictionary)
 
     def run(self):
-        pass
+        self.root.mainloop()
 
 def main():
     """
@@ -31,9 +36,9 @@ def main():
 
     :return: None
     """
-    program= MainProgram
+    program= MainProgram()
     program.run()
-    pass
+
 
 if __name__ == "__main__":
     main()
