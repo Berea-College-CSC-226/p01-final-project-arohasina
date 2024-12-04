@@ -9,17 +9,13 @@
 #
 #################################################################################
 # Acknowledgements:
-#
+#chat GPT for encoding='utf-8'
 #
 #################################################################################
 import json
-import pygame
 import tkinter as tk
 from tkinter import messagebox
-#from pygame.examples.audiocapture import audio
 
-# Initialize pygame mixer
-#pygame.mixer.init()
 
 class Dictionary:
     def __init__(self, filename):
@@ -32,22 +28,6 @@ class Dictionary:
         finally:
             self.file_content.close()
 
-
-# class Audio:
-#     def __init__(self, audio_file=""):
-#         """Single audio file for the whole chapter"""
-#         self.audio_file = audio_file
-#
-#     def play(self):
-#         """Plays the entire audio file"""
-#         try:
-#             pygame.mixer.music.load(self.audio_file)
-#             pygame.mixer.music.play()
-#             # Wait until the audio is finished playing
-#             while pygame.mixer.music.get_busy():
-#                 pygame.time.Clock().tick(10)  # Wait for the music to finish playing
-#         except Exception as e:
-#             print(f"Error playing audio: {e}")
 
 class Flashcard:
     def __init__(self, word_key, dictionary):
@@ -79,13 +59,7 @@ class FlashcardApp:
         # self.audio = audio
         self.current_index = 0
         self.word_keys = list(self.dictionary.flashcard_data.keys())
-        # Audio Buttons
-        # self.audio_frame = tk.Frame(root)
-        # self.audio_frame.pack(pady=10)
-        # self.play_button = tk.Button(self.audio_frame, text="Play Audio", command=self.audio.play)
-        # self.stop_button = tk.Button(self.audio_frame, text="Stop Audio", command=self.audio.stop)
-        # self.play_button.pack(side=tk.LEFT, padx=5)
-        # self.stop_button.pack(side=tk.LEFT, padx=5)
+
 
         # Flashcard Display
         self.flashcard_frame = tk.Frame(root)
