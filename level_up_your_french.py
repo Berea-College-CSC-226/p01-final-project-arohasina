@@ -24,11 +24,13 @@ class MainProgram:
         self.dictionary = Dictionary("files/chapter_1_words.json")
 
         # Create the main Tkinter window
-        self.root = tk.Tk()
-        self.app = FlashcardApp(self.root, self.dictionary)
+        self.screen = tk.Tk()
+        self.screen.geometry("700x500")
+        self.app = FlashcardApp(self.screen, self.dictionary)
+
 
     def run(self):
-        self.root.mainloop()
+        self.screen.mainloop()
 
 def main():
     """
