@@ -9,18 +9,15 @@
 #
 #################################################################################
 # Acknowledgements:
-#chat GPT for: encoding='utf-8' which allows the letter like "é" and "è" to display properly
-#chat GPT for the method:
-# for widget in self.screen.winfo_children():
-#        widget.destroy()
-#winfo_children() is a method that returns a list of all the child widgets of a particular widget
-#https://stackoverflow.com/questions/10158552/how-to-use-an-image-for-the-background-in-tkinter
-#Photo by Tim Gouw on Unsplash
+#background Photo by Tim Gouw on Unsplash.com
+#
+#
 #################################################################################
 import json
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import PhotoImage
+from quiz import*
 
 
 class Dictionary:
@@ -46,13 +43,14 @@ class Flashcard:
 class FlashcardApp:
     def __init__(self, screen, dictionary):
         self.screen = screen
-        self.screen.title("French Flashcards")
+        self.screen.title("Level Up Your French")
         self.dictionary = dictionary
         self.current_index = 0
         self.word_keys = list(self.dictionary.flashcard_data.keys())
-
+        self.quiz_page = QuizPage(self.screen, self.start_quiz, self, self.dictionary)
 
         self.show_homepage()
+
 
     def show_homepage(self):
         for widget in self.screen.winfo_children():
@@ -67,6 +65,15 @@ class FlashcardApp:
 
         # Show the homepage
         self.homepage = Homepage(self.screen, self.start_flashcard)
+
+        # Add a button to go to start the quiz directly
+        quiz_button = tk.Button(self.screen, text="Take Quiz", font=("Arial", 16), command=self.start_quiz)
+        quiz_button.place(x=100, y=200)
+
+    def start_quiz(self):
+        """This method is called when the quiz button is clicked."""
+        quiz = Quiz(self.screen, self.dictionary, self) # Initialize the Quiz class, passing screen as the parameter
+        quiz.start_quiz()
 
 
     def start_flashcard(self):
@@ -83,7 +90,7 @@ class FlashcardApp:
 
         # Flashcard Display
         self.flashcard_frame = tk.Frame(self.screen)
-        self.flashcard_frame.pack(pady=30, expand=True)
+        self.flashcard_frame.place(x=200, y=150)
 
         self.word_label = tk.Label(self.flashcard_frame, text="", font=("Arial", 24))
         self.translation_label = tk.Label(self.flashcard_frame, text="", font=("Arial", 18), fg="blue")
@@ -94,7 +101,7 @@ class FlashcardApp:
 
         # Navigation Buttons
         self.navigation_frame = tk.Frame(self.screen)
-        self.navigation_frame.pack(pady=10)
+        self.navigation_frame.place(x=290, y=300)
 
         self.prev_button = tk.Button(self.navigation_frame, text="Previous", command=self.show_previous_card)
         self.next_button = tk.Button(self.navigation_frame, text="Next", command=self.show_next_card)
@@ -113,8 +120,13 @@ class FlashcardApp:
             self.word_label.config(text=flashcard.word)
             self.translation_label.config(text="Translation: " + flashcard.translation)
             self.example_label.config(text="Example: " + flashcard.example_sentence)
+
+            # Add a button to go to the quiz directly
+            quiz_button = tk.Button(self.screen, text="Take Quiz", font=("Arial", 16), command=self.start_quiz)
+            quiz_button.place(x=100, y=200)
+
         else:
-            messagebox.showinfo("Info", "No more flashcards!")
+            self.show_quizPage()
 
     def show_next_card(self):
         """Show the next flashcard."""
@@ -122,7 +134,7 @@ class FlashcardApp:
             self.current_index += 1
             self.show_flashcard(self.current_index)
         else:
-            messagebox.showinfo("Info", "This is the last flashcard!")
+            self.show_quizPage()
 
     def show_previous_card(self):
         """Show the previous flashcard."""
@@ -132,6 +144,9 @@ class FlashcardApp:
         else:
             messagebox.showinfo("Info", "This is the first flashcard!")
 
+    def show_quizPage(self):
+        self.quiz_page.show_quizPage()
+
 
 class Homepage:
     def __init__(self, screen, start_flashcard):
@@ -140,13 +155,53 @@ class Homepage:
 
         # Home Page Title
         title_label = tk.Label(self.screen, text="Welcome to Level Up Your French", font=("Arial", 24, "bold"))
-        title_label.pack(pady=50)
+        title_label.place(x=100, y=150)
 
         # Home Page Buttons
-        start_button = tk.Button(self.screen, text="Start Flashcards", font=("Arial", 16), command=self.start_flashcard)
-        start_button.pack(pady=30)
+        start_button = tk.Button(self.screen, text="Start Learning", font=("Arial", 16), command=self.start_flashcard)
+        start_button.place(x=280, y=230)
 
         exit_button = tk.Button(self.screen, text="Exit", font=("Arial", 16), command=self.screen.quit)
-        exit_button.pack(pady=30)
+        exit_button.place(x=340, y=280)
+
+class QuizPage:
+    def __init__(self, screen, start_quiz,flashcard_app, dictionary):
+        self.flashcard_app = flashcard_app
+        self.dictionary= dictionary
+        self.screen= screen
+        self.start_quiz = start_quiz
+
+
+    def show_quizPage(self):
+        for widget in self.screen.winfo_children():
+            widget.destroy()
+
+        # Load background image
+        self.background_image = PhotoImage(
+            file=r"C:\Users\ravoahanginiainaa\PycharmProjects\p01-final-project-arohasina\quiz_page_bg.gif")
+
+        # Create a label with the background image
+        self.background_label = tk.Label(self.screen, image=self.background_image)
+        self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+        # quiz Page Title
+        title_label = tk.Label(self.screen, text="You have learned all the words\nfor this chapter",
+                               font=("Arial", 24, "bold"))
+        title_label.place(x=100, y=150)
+
+        # quizz page buttons
+        start_quiz_button = tk.Button(self.screen, text="Take a quiz", font=("Arial", 16), command=self.start_quiz)
+        start_quiz_button.place(x=280, y=250)
+
+        # Back to Homepage button
+        back_button = tk.Button(self.screen, text="Back to Homepage", font=("Arial", 16), command=self.show_homepage)
+        back_button.place(x=260, y=300)
+
+    def show_homepage(self):
+        """Go back to the homepage using composition."""
+        self.flashcard_app.show_homepage()
+
+
+
 
 
