@@ -63,7 +63,7 @@ class Quiz:
                 font=("Arial", 16),
             )
             choice_button.place(x=base_x, y=base_y + index * y_gap)
-            index += 1  # Increment index manually
+            index += 1  # Increment index
 
         #function for the submit button
         def submit_answer():
@@ -72,9 +72,13 @@ class Quiz:
         # Submit button
         submit_button = tk.Button(
             self.screen, text="Submit", font=("Arial", 16),
-            command=submit_answer  # Use the defined function
+            command=submit_answer
         )
         submit_button.place(x=base_x, y=base_y + index * y_gap)
+
+        # back to Homepage button
+        homepage_button= tk.Button(self.screen, text="Back to Homepage", font=("Arial", 16),command=self.go_to_Homepage)
+        homepage_button.place(x=base_x, y=base_y + y_gap + 150)
 
     def generate_quiz(self, index):
         """Generate a question with multiple-choice answers"""

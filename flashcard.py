@@ -44,6 +44,7 @@ class FlashcardApp:
     def __init__(self, screen, dictionary):
         self.screen = screen
         self.screen.title("Level Up Your French")
+        self.screen.resizable(False, False)  # Disable window resizing
         self.dictionary = dictionary
         self.current_index = 0
         self.word_keys = list(self.dictionary.flashcard_data.keys())
@@ -112,10 +113,13 @@ class FlashcardApp:
             self.translation_label.config(text="Translation: " + flashcard.translation)
             self.example_label.config(text="Example: " + flashcard.example_sentence)
 
-            # Add a button to go to the quiz directly
+            # button to go to the quiz directly
             quiz_button = tk.Button(self.screen, text="Take the Quiz", font=("Arial", 16), command=self.start_quiz)
             quiz_button.place(x=100, y=200)
 
+            # button to go to the quiz directly
+            go_homepage_button = tk.Button(self.screen, text="Back to Homepage", font=("Arial", 16), command=self.show_homepage)
+            go_homepage_button.place(x=100, y=300)
         else:
             self.show_quizPage()
 
