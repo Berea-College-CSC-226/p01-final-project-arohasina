@@ -18,6 +18,19 @@ Throughout this project, you have likely used outside resources. Reference all i
 and describe how you integrated the ideas or code into your program. This includes online sources, people who have 
 helped you, AI tools you've used, and any other resources that are not solely your own contribution. Update as you go.
 
+-chat GPT for: encoding='utf-8' which allows the letter like "é" and "è" to display properly
+
+-chat GPT for the method:
+for widget in self.screen.winfo_children():
+        widget.destroy()
+
+winfo_children() is a method that returns a list of all the child widgets of a particular widget
+and then widget.destroy() removes all widget from the screen when it transitions to a new event
+
+-how to include a background in tkinter:
+https://stackoverflow.com/questions/10158552/how-to-use-an-image-for-the-background-in-tkinter
+
+
 ---
 
 ## Milestone 1: Setup, Planning, Design
@@ -66,14 +79,22 @@ At the same time, I’ve been surprised by how much the planning has helped me f
 
 Indicate what percentage of the project you have left to complete and how confident you feel. 
 
-❗️**Completion Percentage**: `0 - 100%`
+**Completion Percentage**: `70%`
 
-❗️**Confidence**: Describe how confident you feel about completing this project, and why. Then, describe some 
-  strategies you can employ to increase the likelihood that you'll be successful in completing this project 
-  before the deadline.
+**Confidence**: 
 
 ```
-    **Replace this text with your reflection
+I feel relatively confident about completing the project. I had to remove some features like audio because I was 
+unsure how to implement them. However, I have kept them in my issue queue for future enhancement. 
+But I have managed to implement the key components of the project, such as the flashcards display,
+ and now i am working on the quiz functionality, and scoring system, which I believe will meet the core requirements.
+
+To increase the likelihood of success, I plan to keep breaking down the remaining tasks into smaller, 
+manageable steps. I'll prioritize completing the quiz and final score display, 
+as these are the most crucial aspects of the project. Additionally, I'll continue testing as I progress, 
+identifying and resolving bugs early. 
+If I encounter any issues, I will seek help from online resources, TAs or the professor. 
+
 ```
 
 ---
