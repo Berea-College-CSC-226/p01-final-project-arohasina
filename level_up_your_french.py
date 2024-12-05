@@ -16,12 +16,12 @@ from flashcard import *
 from quiz import *
 
 class MainProgram:
-    def __init__(self):
+    def __init__(self, dictionary):
         """
         MainProgram class for handling the program logic.
         """
         # Load dictionary and start application
-        self.dictionary = Dictionary("files/chapter_1_words.json")
+        self.dictionary = dictionary
 
         # Create the main Tkinter window
         self.screen = tk.Tk()
@@ -38,7 +38,11 @@ def main():
 
     :return: None
     """
-    program= MainProgram()
+    dictionary = Dictionary("files/chapter_1_words.json")
+    print(type(dictionary))  # Check the type of dictionary
+    print(dictionary.flashcard_data)
+
+    program= MainProgram(dictionary)
     program.run()
 
 

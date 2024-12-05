@@ -47,7 +47,8 @@ class FlashcardApp:
         self.dictionary = dictionary
         self.current_index = 0
         self.word_keys = list(self.dictionary.flashcard_data.keys())
-        self.quiz_page = QuizPage(self.screen, self.start_quiz, self, self.dictionary)
+        self.quiz_page = QuizPage(self.screen, self)
+        self.start_quiz_instance = Quiz(self.screen, self.dictionary, self)
 
         self.show_homepage()
 
@@ -64,17 +65,7 @@ class FlashcardApp:
         self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Show the homepage
-        self.homepage = Homepage(self.screen, self.start_flashcard)
-
-        # Add a button to go to start the quiz directly
-        quiz_button = tk.Button(self.screen, text="Take Quiz", font=("Arial", 16), command=self.start_quiz)
-        quiz_button.place(x=100, y=200)
-
-    def start_quiz(self):
-        """This method is called when the quiz button is clicked."""
-        quiz = Quiz(self.screen, self.dictionary, self) # Initialize the Quiz class, passing screen as the parameter
-        quiz.start_quiz()
-
+        self.homepage = Homepage(self.screen, self.start_flashcard, self.start_quiz)
 
     def start_flashcard(self):
         # Clear the frame but not the background canvas
@@ -122,7 +113,7 @@ class FlashcardApp:
             self.example_label.config(text="Example: " + flashcard.example_sentence)
 
             # Add a button to go to the quiz directly
-            quiz_button = tk.Button(self.screen, text="Take Quiz", font=("Arial", 16), command=self.start_quiz)
+            quiz_button = tk.Button(self.screen, text="Take the Quiz", font=("Arial", 16), command=self.start_quiz)
             quiz_button.place(x=100, y=200)
 
         else:
@@ -144,14 +135,19 @@ class FlashcardApp:
         else:
             messagebox.showinfo("Info", "This is the first flashcard!")
 
+    def start_quiz(self):
+        """This method is called when the quiz button is clicked."""
+        self.start_quiz_instance.start_quiz()
+
     def show_quizPage(self):
         self.quiz_page.show_quizPage()
 
 
 class Homepage:
-    def __init__(self, screen, start_flashcard):
+    def __init__(self, screen, start_flashcard,start_quiz):
         self.screen = screen
         self.start_flashcard= start_flashcard
+        self.start_quiz = start_quiz
 
         # Home Page Title
         title_label = tk.Label(self.screen, text="Welcome to Level Up Your French", font=("Arial", 24, "bold"))
@@ -161,16 +157,16 @@ class Homepage:
         start_button = tk.Button(self.screen, text="Start Learning", font=("Arial", 16), command=self.start_flashcard)
         start_button.place(x=280, y=230)
 
-        exit_button = tk.Button(self.screen, text="Exit", font=("Arial", 16), command=self.screen.quit)
-        exit_button.place(x=340, y=280)
+        # Add a button to go to start the quiz directly
+        quiz_button = tk.Button(self.screen, text="Take the Quiz", font=("Arial", 16), command=self.start_quiz)
+        quiz_button.place(x=340, y=280)
+
 
 class QuizPage:
-    def __init__(self, screen, start_quiz,flashcard_app, dictionary):
+    def __init__(self, screen,flashcard_app):
         self.flashcard_app = flashcard_app
-        self.dictionary= dictionary
         self.screen= screen
-        self.start_quiz = start_quiz
-
+        self.dictionary = flashcard_app.dictionary
 
     def show_quizPage(self):
         for widget in self.screen.winfo_children():
@@ -200,6 +196,10 @@ class QuizPage:
     def show_homepage(self):
         """Go back to the homepage using composition."""
         self.flashcard_app.show_homepage()
+
+    def start_quiz(self):
+        """This method is called when the quiz button is clicked."""
+        self.flashcard_app.start_quiz()
 
 
 
