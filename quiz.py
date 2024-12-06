@@ -9,8 +9,9 @@
 #
 #################################################################################
 # Acknowledgements:
-#
-#
+#background Photo by Tim Gouw on Unsplash.com
+#Some French vocabulary and phrases were sourced from the book at:
+# https://www.laits.utexas.edu/fi/
 #################################################################################
 from flashcard import *
 import random

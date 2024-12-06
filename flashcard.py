@@ -10,8 +10,8 @@
 #################################################################################
 # Acknowledgements:
 #background Photo by Tim Gouw on Unsplash.com
-#
-#
+#Some French vocabulary and phrases were sourced from the book at:
+# https://www.laits.utexas.edu/fi/
 #################################################################################
 import json
 import tkinter as tk
@@ -155,7 +155,7 @@ class FlashcardApp:
             word_key = self.word_keys[index]
             flashcard = Flashcard(word_key, self.dictionary)
             self.word_label.config(text="\n"+flashcard.word)
-            self.translation_label.config(text="  \nTranslation: " + flashcard.translation+"  ")
+            self.translation_label.config(text="  \nIn French: " + flashcard.translation+"  ")
             self.example_label.config(text="  Example: " + flashcard.example_sentence+"  \n"+"\n")
 
             # button to go to the quiz directly
@@ -279,13 +279,13 @@ class QuizPage:
         title_label.place(x=100, y=150)
 
         # start quizz button for quiz page
-        start_quiz_button = tk.Button(self.screen, text="Take the quiz", bg="IndianRed1",fg="white",
+        start_quiz_button = tk.Button(self.screen, text="Take the quiz", bg="dark sea green",fg="white",
                                       font=("Helvetica", 16), command=self.start_quiz)
         start_quiz_button.place(x=280, y=250)
 
         # Back to Homepage button
         back_button = tk.Button(self.screen, text="Back to Homepage", font=("Helvetica", 16), command=self.show_homepage)
-        back_button.place(x=260, y=300)
+        back_button.place(x=253, y=300)
 
 
     def show_homepage(self):
