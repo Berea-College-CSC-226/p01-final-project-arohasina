@@ -39,9 +39,6 @@ def main():
     :return: None
     """
     dictionary = Dictionary("files/chapter_1_words.json")
-    print(type(dictionary))  # Check the type of dictionary
-    print(dictionary.flashcard_data)
-
     program= MainProgram(dictionary)
     program.run()
 

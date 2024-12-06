@@ -60,48 +60,54 @@ class FlashcardApp:
 
         # Load background image
         self.background_image = PhotoImage(
-            file=r"C:\Users\ravoahanginiainaa\PycharmProjects\p01-final-project-arohasina\bg_pic.gif")
+            file="image/bg_pic.gif")
         # Create a label with the background image
         self.background_label = tk.Label(self.screen, image=self.background_image)
-        self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        self.background_label.place(x=0, y=0)
 
         # Show the homepage
         self.homepage = Homepage(self.screen, self.start_flashcard, self.start_quiz)
 
     def start_flashcard(self):
+        # Reset the flashcard index
+        self.current_index = 0
+
         # Clear the frame but not the background canvas
         for widget in self.screen.winfo_children():
             widget.destroy()
 
         # Load background image
         self.background_image = PhotoImage(
-            file=r"C:\Users\ravoahanginiainaa\PycharmProjects\p01-final-project-arohasina\bg_pic.gif")
+            file="image/bg_pic.gif")
+
         # Create a label with the background image
         self.background_label = tk.Label(self.screen, image=self.background_image)
-        self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        self.background_label.place(x=0, y=0)
 
         # Flashcard Display
-        self.flashcard_frame = tk.Frame(self.screen)
-        self.flashcard_frame.place(x=200, y=150)
+        self.flashcard_frame = tk.Frame(self.screen, bg="light yellow")
+        self.flashcard_frame.place(x=200, y=100)
 
-        self.word_label = tk.Label(self.flashcard_frame, text="", font=("Arial", 24))
-        self.translation_label = tk.Label(self.flashcard_frame, text="", font=("Arial", 18), fg="blue")
-        self.example_label = tk.Label(self.flashcard_frame, text="", font=("Arial", 16), wraplength=400, justify="center")
+        self.word_label = tk.Label(self.flashcard_frame, text="", font=("Helvetica", 26), bg="light yellow", fg="coral2")
+        self.translation_label = tk.Label(self.flashcard_frame, text="", font=("Helvetica", 18), bg="light yellow")
+        self.example_label = tk.Label(self.flashcard_frame, text="", font=("Helvetica", 18), bg="light yellow",
+                                      wraplength=400, justify="center")
+
+        #pack flashcard info inside the flashcard frame
         self.word_label.pack()
         self.translation_label.pack()
         self.example_label.pack()
 
-        # Navigation Buttons
-        self.navigation_frame = tk.Frame(self.screen)
-        self.navigation_frame.place(x=290, y=300)
-
-        self.prev_button = tk.Button(self.navigation_frame, text="Previous", command=self.show_previous_card)
-        self.next_button = tk.Button(self.navigation_frame, text="Next", command=self.show_next_card)
-        self.prev_button.pack(side=tk.LEFT, padx=5)
-        self.next_button.pack(side=tk.LEFT, padx=5)
+        #place navigation buttons
+        self.prev_button = tk.Button(self.screen, text="Previous",bg="IndianRed1",fg="white",
+                                     font=("Helvetica", 14), command=self.show_previous_card)
+        self.next_button = tk.Button(self.screen, text="    Next    ", bg="IndianRed1",fg="white",
+                                     font=("Helvetica", 14), command=self.show_next_card)
+        self.prev_button.place(x=270, y=350)
+        self.next_button.place(x=370, y=350)
 
         # Load the first flashcard
-        self.show_flashcard(0)
+        self.show_flashcard(self.current_index)
 
 
     def show_flashcard(self, index):
@@ -109,17 +115,19 @@ class FlashcardApp:
         if 0 <= index < len(self.word_keys):  # Valid index check
             word_key = self.word_keys[index]
             flashcard = Flashcard(word_key, self.dictionary)
-            self.word_label.config(text=flashcard.word)
-            self.translation_label.config(text="Translation: " + flashcard.translation)
-            self.example_label.config(text="Example: " + flashcard.example_sentence)
+            self.word_label.config(text="\n"+flashcard.word)
+            self.translation_label.config(text="  \nTranslation: " + flashcard.translation+"  ")
+            self.example_label.config(text="  Example: " + flashcard.example_sentence+"  \n"+"\n")
 
             # button to go to the quiz directly
-            quiz_button = tk.Button(self.screen, text="Take the Quiz", font=("Arial", 16), command=self.start_quiz)
-            quiz_button.place(x=100, y=200)
+            quiz_button = tk.Button(self.screen, text="Take the Quiz", bg="dark sea green",fg="white", font=("Helvetica", 13),
+                                    command=self.start_quiz)
+            quiz_button.place(x=580, y=450)
 
             # button to go to the quiz directly
-            go_homepage_button = tk.Button(self.screen, text="Back to Homepage", font=("Arial", 16), command=self.show_homepage)
-            go_homepage_button.place(x=100, y=300)
+            go_homepage_button = tk.Button(self.screen, text="Back to Homepage", bg="dark sea green",fg="white", font=("Helvetica", 13),
+                                           command=self.show_homepage)
+            go_homepage_button.place(x=10, y=450)
         else:
             self.show_quizPage()
 
@@ -154,16 +162,19 @@ class Homepage:
         self.start_quiz = start_quiz
 
         # Home Page Title
-        title_label = tk.Label(self.screen, text="Welcome to Level Up Your French", font=("Arial", 24, "bold"))
-        title_label.place(x=100, y=150)
+        title_label = tk.Label(self.screen, text="  Welcome to\nLevel Up Your French!  ", bg="light yellow",fg="dark sea green",
+                               font=("Helvetica", 30, "italic"), wraplength=500, justify="center")
+        title_label.place(x=150, y=140)
 
         # Home Page Buttons
-        start_button = tk.Button(self.screen, text="Start Learning", font=("Arial", 16), command=self.start_flashcard)
-        start_button.place(x=280, y=230)
+        start_button = tk.Button(self.screen, text="  Start Learning  ", bg="dark sea green",fg="white",
+                                 font=("Helvetica", 16), command=self.start_flashcard)
+        start_button.place(x=265, y=260)
 
-        # Add a button to go to start the quiz directly
-        quiz_button = tk.Button(self.screen, text="Take the Quiz", font=("Arial", 16), command=self.start_quiz)
-        quiz_button.place(x=340, y=280)
+        # button to start the quiz directly
+        quiz_button = tk.Button(self.screen, text="  Take the Quiz  ", bg="dark sea green",fg="white", font=("Helvetica", 16),
+                                command=self.start_quiz)
+        quiz_button.place(x=265, y=320)
 
 
 class QuizPage:
@@ -178,23 +189,25 @@ class QuizPage:
 
         # Load background image
         self.background_image = PhotoImage(
-            file=r"C:\Users\ravoahanginiainaa\PycharmProjects\p01-final-project-arohasina\quiz_page_bg.gif")
+            file="image/quiz_page_bg.gif")
 
         # Create a label with the background image
         self.background_label = tk.Label(self.screen, image=self.background_image)
-        self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        self.background_label.place(x=0, y=0)
 
         # quiz Page Title
         title_label = tk.Label(self.screen, text="You have learned all the words\nfor this chapter",
-                               font=("Arial", 24, "bold"))
+                               bg="light coral", fg="white",
+                               font=("Helvetica", 24, "italic", "bold"))
         title_label.place(x=100, y=150)
 
-        # quizz page buttons
-        start_quiz_button = tk.Button(self.screen, text="Take a quiz", font=("Arial", 16), command=self.start_quiz)
+        # start quizz button for quiz page
+        start_quiz_button = tk.Button(self.screen, text="Take the quiz", bg="IndianRed1",fg="white",
+                                      font=("Helvetica", 16), command=self.start_quiz)
         start_quiz_button.place(x=280, y=250)
 
         # Back to Homepage button
-        back_button = tk.Button(self.screen, text="Back to Homepage", font=("Arial", 16), command=self.show_homepage)
+        back_button = tk.Button(self.screen, text="Back to Homepage", font=("Helvetica", 16), command=self.show_homepage)
         back_button.place(x=260, y=300)
 
     def show_homepage(self):

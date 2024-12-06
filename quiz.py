@@ -38,10 +38,17 @@ class Quiz:
         for widget in self.screen.winfo_children():
             widget.destroy()
 
+        # Load background image
+        self.background_image = PhotoImage(
+            file="image/bg_pic.gif")
+        # Create a label with the background image
+        self.background_label = tk.Label(self.screen, image=self.background_image)
+        self.background_label.place(x=0, y=0)
+
         word_key, correct_answer, answer_choices = self.generate_quiz(index)
 
         question_text = "In French, how do we say: '{}'?".format(word_key)
-        question_label = tk.Label(self.screen, text=question_text, font=("Arial", 20))
+        question_label = tk.Label(self.screen, text=question_text, font=("Helvetica", 20), fg="firebrick4")
         question_label.place(x=70, y=150)
 
         # Reset the answer variable
@@ -60,7 +67,7 @@ class Quiz:
                 text=choice,
                 variable=self.answer_var,
                 value=choice,
-                font=("Arial", 16),
+                font=("Helvetica", 20),
             )
             choice_button.place(x=base_x, y=base_y + index * y_gap)
             index += 1  # Increment index
@@ -71,14 +78,14 @@ class Quiz:
 
         # Submit button
         submit_button = tk.Button(
-            self.screen, text="Submit", font=("Arial", 16),
+            self.screen, text="Submit", font=("Helvetica", 16), bg="dark sea green",
             command=submit_answer
         )
-        submit_button.place(x=base_x, y=base_y + index * y_gap)
+        submit_button.place(x=base_x, y=base_y +12 + index * y_gap)
 
         # back to Homepage button
-        homepage_button= tk.Button(self.screen, text="Back to Homepage", font=("Arial", 16),command=self.go_to_Homepage)
-        homepage_button.place(x=base_x, y=base_y + y_gap + 150)
+        homepage_button= tk.Button(self.screen, text="Back to Homepage", font=("Helvetica", 16),command=self.go_to_Homepage)
+        homepage_button.place(x=base_x, y=base_y + 70 + index * y_gap)
 
     def generate_quiz(self, index):
         """Generate a question with multiple-choice answers"""
@@ -140,25 +147,38 @@ class Quiz:
         for widget in self.screen.winfo_children():
             widget.destroy()
 
+        # Load background image
+        self.background_image = PhotoImage(
+            file="image/quiz_page_bg.gif")
+        # Create a label with the background image
+        self.background_label = tk.Label(self.screen, image=self.background_image)
+        self.background_label.place(x=0, y=0)
+
         # Create a new label to display the final score
         final_score_text = "Your score is {} out of {}".format(self.score, self.total_questions)
-        final_score_label = tk.Label(self.screen, text=final_score_text, font=("Arial", 24), fg="green")
+        final_score_label = tk.Label(self.screen, text=final_score_text, font=("Helvetica", 24), bg="IndianRed1",fg="white")
         final_score_label.place(x=100, y=150)  # You can adjust x and y for positioning
 
         #buttons for retaking the quiz
-        retake_button = tk.Button(self.screen, text="Retake Quiz", font=("Arial", 14), command=self.retake_quiz)
+        retake_button = tk.Button(self.screen, text="Retake Quiz", font=("Helvetica", 14),bg="dark sea green",fg="white",
+                                   command=self.retake_quiz)
         retake_button.place(x=100, y=200)
 
         #back to Homepage button
-        homepage_button = tk.Button(self.screen, text="Back to Homepage", font=("Arial", 14), command=self.go_to_Homepage)
+        homepage_button = tk.Button(self.screen, text="Back to Homepage", font=("Helvetica", 14),
+                                    bg="dark sea green",fg="white", command=self.go_to_Homepage)
         homepage_button.place(x=250, y=200)
 
     def retake_quiz(self):
         """Reset the quiz to retake it."""
+        self.word_keys = list(self.dictionary.flashcard_data.keys())  # Refresh keys
         self.current_index = 0
         self.score = 0
         self.display(self.current_index)  # Start from the first question
 
     def go_to_Homepage(self):
         """Go back to the main menu."""
+        self.word_keys = list(self.dictionary.flashcard_data.keys())  # Refresh keys
+        self.current_index = 0  # Reset index
+        self.score = 0
         self.flashcard_app.show_homepage()
