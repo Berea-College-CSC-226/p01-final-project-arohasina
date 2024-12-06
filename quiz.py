@@ -17,9 +17,16 @@ import random
 import tkinter as tk
 from tkinter import messagebox
 
+
 class Quiz:
     def __init__(self,screen, dictionary, flashcard_app):
-        """Initializes a Quiz instance"""
+        """
+        Initializes a Quiz instance.
+
+        :param screen: The tkinter screen on which the quiz will be displayed.
+        :param dictionary: The flashcard data dictionary containing words and their French translations.
+        :param flashcard_app: The parent flashcard application instance for navigation.
+        """
         self.screen = screen
         self.dictionary = dictionary
         self.flashcard_app = flashcard_app
@@ -29,24 +36,34 @@ class Quiz:
         self.score = 0
         self.answer_var = tk.StringVar()  # Variable to hold selected answer
 
+
     def start_quiz(self):
+        """
+        Starts the quiz by displaying the first question.
+        """
         self.display(self.current_index)
 
+
     def display(self, index):
-        """Display the question and multiple choice options"""
-        # Display the question
+        """
+        Display the question and multiple-choice options.
+
+        :param index: The index of the current question to be displayed.
+        """
+        #clear the screen
         for widget in self.screen.winfo_children():
             widget.destroy()
 
         # Load background image
-        self.background_image = PhotoImage(
-            file="image/bg_pic.gif")
+        self.background_image = PhotoImage(file="image/bg_pic.gif")
         # Create a label with the background image
         self.background_label = tk.Label(self.screen, image=self.background_image)
         self.background_label.place(x=0, y=0)
 
+        # Generate the quiz question, correct answer, and possible answer choices
         word_key, correct_answer, answer_choices = self.generate_quiz(index)
 
+        # Display the question
         question_text = "In French, how do we say: '{}'?".format(word_key)
         question_label = tk.Label(self.screen, text=question_text, font=("Helvetica", 20), fg="firebrick4")
         question_label.place(x=70, y=150)
@@ -60,7 +77,7 @@ class Quiz:
         y_gap = 40  # Vertical gap between each choice
 
         # Display answer choices as radio buttons
-        index = 0  # Manual index counter
+        index = 0  #index counter
         for choice in answer_choices:
             choice_button = tk.Radiobutton(
                 self.screen,
@@ -87,8 +104,14 @@ class Quiz:
         homepage_button= tk.Button(self.screen, text="Back to Homepage", font=("Helvetica", 16),command=self.go_to_Homepage)
         homepage_button.place(x=base_x, y=base_y + 70 + index * y_gap)
 
+
     def generate_quiz(self, index):
-        """Generate a question with multiple-choice answers"""
+        """
+        Generate a question with multiple-choice answers.
+
+        :param index: The index of the current question.
+        :return: A tuple containing the word_key, correct_answer, and answer_choices.
+        """
         if 0 <= index < len(self.word_keys): # Valid index check
             word_key = self.word_keys[index]
             word_data = self.dictionary.flashcard_data.get(word_key, {})
@@ -120,9 +143,12 @@ class Quiz:
             return word_key, correct_answer, answer_choices
 
 
-
     def check_answer(self, correct_answer):
-        """Compares the user’s answer to the correct answer, returning True if correct, otherwise False."""
+        """
+        Compares the user’s answer to the correct answer, returning True if correct, otherwise False.
+
+        :param correct_answer: The correct French translation for the word being asked.
+        """
         user_answer = self.answer_var.get()
 
         if user_answer == correct_answer:
@@ -134,16 +160,23 @@ class Quiz:
         # Move to next question or finish quiz
         self.next_question()
 
+
     def next_question(self):
+        """
+        Move to the next question in the quiz
+        """
         self.current_index += 1
         if self.current_index < self.total_questions:
             self.display(self.current_index)  # Show the next question
         else:
             self.show_final_score()
 
+
     def show_final_score(self):
-        """Display the final score directly on the screen."""
-        # Clear the screen for the final score (optional)
+        """
+        Display the final score directly on the screen.
+        """
+        # Clear the screen for the final score
         for widget in self.screen.winfo_children():
             widget.destroy()
 
@@ -154,7 +187,7 @@ class Quiz:
         self.background_label = tk.Label(self.screen, image=self.background_image)
         self.background_label.place(x=0, y=0)
 
-        # Create a new label to display the final score
+        # Display the final score message
         final_score_text = "Your score is {} out of {}".format(self.score, self.total_questions)
         final_score_label = tk.Label(self.screen, text=final_score_text, font=("Helvetica", 24), bg="IndianRed1",fg="white")
         final_score_label.place(x=100, y=150)  # You can adjust x and y for positioning
@@ -164,21 +197,27 @@ class Quiz:
                                    command=self.retake_quiz)
         retake_button.place(x=100, y=200)
 
-        #back to Homepage button
+        #button for going back to Homepage
         homepage_button = tk.Button(self.screen, text="Back to Homepage", font=("Helvetica", 14),
                                     bg="dark sea green",fg="white", command=self.go_to_Homepage)
         homepage_button.place(x=250, y=200)
 
+
     def retake_quiz(self):
-        """Reset the quiz to retake it."""
+        """
+        Reset the quiz and start again.
+        """
         self.word_keys = list(self.dictionary.flashcard_data.keys())  # Refresh keys
         self.current_index = 0
         self.score = 0
         self.display(self.current_index)  # Start from the first question
 
+
     def go_to_Homepage(self):
-        """Go back to the main menu."""
+        """
+        Go back to the Homepage.
+        """
         self.word_keys = list(self.dictionary.flashcard_data.keys())  # Refresh keys
-        self.current_index = 0  # Reset index
+        self.current_index = 0
         self.score = 0
         self.flashcard_app.show_homepage()

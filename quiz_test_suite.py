@@ -15,6 +15,7 @@
 from inspect import getframeinfo, stack
 from quiz import *
 
+
 def unittest(did_pass):
     """
     Print the result of a unit test.
@@ -101,6 +102,10 @@ def quiz_suite():
 
 
 def main():
+    """
+    start the quiz test suite
+    :return: none
+    """
     quiz_suite()
 
 if __name__ == "__main__":

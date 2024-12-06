@@ -71,6 +71,10 @@ def flashcard_suite():
 
 
 def main():
+    """
+    start the flashcard test suite
+    :return: none
+    """
     flashcard_suite()
 
 if __name__ == "__main__":

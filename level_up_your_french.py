@@ -15,28 +15,31 @@
 from flashcard import *
 from quiz import *
 
+
 class MainProgram:
     def __init__(self, dictionary):
         """
         MainProgram class for handling the program logic.
+
+        :param dictionary: The Dictionary object containing the French vocabulary data.
         """
-        # Load dictionary and start application
         self.dictionary = dictionary
 
-        # Create the main Tkinter window
         self.screen = tk.Tk()
         self.screen.geometry("700x500")
+
         self.app = FlashcardApp(self.screen, self.dictionary)
 
 
     def run(self):
+        """
+        Runs the Tkinter main loop.
+        """
         self.screen.mainloop()
 
 def main():
     """
     Starts the Level Up Your French program.
-
-    :return: None
     """
     dictionary = Dictionary("files/chapter_1_words.json")
     program= MainProgram(dictionary)

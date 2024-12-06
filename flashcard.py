@@ -21,7 +21,15 @@ from quiz import*
 
 
 class Dictionary:
+    """
+    Loads the dictionary data from a JSON file.
+    """
     def __init__(self, filename):
+        """
+        Initializes the dictionary by loading data from a JSON file.
+
+        :param filename: The path to the JSON file containing flashcard data.
+        """
         try:
             self.file_content = open(filename, 'r', encoding='utf-8')
             self.flashcard_data = json.load(self.file_content)
@@ -32,16 +40,36 @@ class Dictionary:
             self.file_content.close()
 
 
+
 class Flashcard:
+    """
+    Create a flashcard with a word, its translation, and example sentence.
+    """
     def __init__(self, word_key, dictionary):
+        """
+        Initializes the flashcard with word data from the dictionary.
+
+        :param word_key: The key representing the word in the dictionary.
+        :param dictionary: The dictionary object containing the flashcard data.
+        """
         word_data = dictionary.flashcard_data.get(word_key, {})
         self.word = word_key
         self.translation = word_data.get("french", "Translation not available")
         self.example_sentence = word_data.get("sentence", "Example sentence not available")
 
 
+
 class FlashcardApp:
+    """
+    Main application for displaying flashcards and navigating between them.
+    """
     def __init__(self, screen, dictionary):
+        """
+        Initializes the flashcard application.
+
+        :param screen: The Tkinter window where the flashcards will be displayed.
+        :param dictionary: The dictionary object containing flashcard data.
+        """
         self.screen = screen
         self.screen.title("Level Up Your French")
         self.screen.resizable(False, False)  # Disable window resizing
@@ -55,6 +83,9 @@ class FlashcardApp:
 
 
     def show_homepage(self):
+        """
+        Displays the homepage with the option to start learning or take a quiz.
+        """
         for widget in self.screen.winfo_children():
             widget.destroy()
 
@@ -68,7 +99,11 @@ class FlashcardApp:
         # Show the homepage
         self.homepage = Homepage(self.screen, self.start_flashcard, self.start_quiz)
 
+
     def start_flashcard(self):
+        """
+        Starts the flashcard mode and displays the first flashcard.
+        """
         # Reset the flashcard index
         self.current_index = 0
 
@@ -111,7 +146,11 @@ class FlashcardApp:
 
 
     def show_flashcard(self, index):
-        """Display the flashcard at the given index."""
+        """
+        Displays the flashcard at the given index.
+
+        :param index: The index of the flashcard to display.
+        """
         if 0 <= index < len(self.word_keys):  # Valid index check
             word_key = self.word_keys[index]
             flashcard = Flashcard(word_key, self.dictionary)
@@ -131,32 +170,56 @@ class FlashcardApp:
         else:
             self.show_quizPage()
 
+
     def show_next_card(self):
-        """Show the next flashcard."""
+        """
+        Show the next flashcard.
+        """
         if self.current_index < len(self.word_keys) - 1:
             self.current_index += 1
             self.show_flashcard(self.current_index)
         else:
             self.show_quizPage()
 
+
     def show_previous_card(self):
-        """Show the previous flashcard."""
+        """
+        Show the previous flashcard.
+        """
         if self.current_index > 0:
             self.current_index -= 1
             self.show_flashcard(self.current_index)
         else:
             messagebox.showinfo("Info", "This is the first flashcard!")
 
+
     def start_quiz(self):
-        """This method is called when the quiz button is clicked."""
+        """
+        This method is called when the quiz button is clicked.
+        """
         self.start_quiz_instance.start_quiz()
 
+
     def show_quizPage(self):
+        """
+        Displays the quiz page.
+        """
         self.quiz_page.show_quizPage()
 
 
+
 class Homepage:
+    """
+    Displays the homepage with buttons to start flashcards or take a quiz.
+    """
     def __init__(self, screen, start_flashcard,start_quiz):
+        """
+        Initializes the homepage with buttons for flashcards and quizzes.
+
+        :param screen: The Tkinter window for displaying the homepage.
+        :param start_flashcard: The method to start flashcards when clicked.
+        :param start_quiz: The method to start the quiz when clicked.
+        """
         self.screen = screen
         self.start_flashcard= start_flashcard
         self.start_quiz = start_quiz
@@ -177,13 +240,27 @@ class Homepage:
         quiz_button.place(x=265, y=320)
 
 
+
 class QuizPage:
+    """
+    Displays the quiz page and manages quiz interactions.
+    """
     def __init__(self, screen,flashcard_app):
+        """
+        Initializes the quiz page with the flashcard app.
+
+        :param screen: The Tkinter window to display the quiz page.
+        :param flashcard_app: The main flashcard application instance.
+        """
         self.flashcard_app = flashcard_app
         self.screen= screen
         self.dictionary = flashcard_app.dictionary
 
+
     def show_quizPage(self):
+        """
+        Displays the quiz page.
+        """
         for widget in self.screen.winfo_children():
             widget.destroy()
 
@@ -210,12 +287,18 @@ class QuizPage:
         back_button = tk.Button(self.screen, text="Back to Homepage", font=("Helvetica", 16), command=self.show_homepage)
         back_button.place(x=260, y=300)
 
+
     def show_homepage(self):
-        """Go back to the homepage using composition."""
+        """
+        Navigates back to the homepage when clicked
+        """
         self.flashcard_app.show_homepage()
 
+
     def start_quiz(self):
-        """This method is called when the quiz button is clicked."""
+        """
+        Starts the quiz when clicked.
+        """
         self.flashcard_app.start_quiz()
 
 
