@@ -35,7 +35,7 @@ class Dictionary:
             self.flashcard_data = json.load(self.file_content)
         except Exception as e:
             self.flashcard_data = {}
-            print(f"Error loading dictionary: {e}")
+            print("Error loading dictionary: {}".format(e))
         finally:
             self.file_content.close()
 
@@ -86,6 +86,7 @@ class FlashcardApp:
         """
         Displays the homepage with the option to start learning or take a quiz.
         """
+        # Clear the frame
         for widget in self.screen.winfo_children():
             widget.destroy()
 
@@ -107,7 +108,7 @@ class FlashcardApp:
         # Reset the flashcard index
         self.current_index = 0
 
-        # Clear the frame but not the background canvas
+        # Clear the frame
         for widget in self.screen.winfo_children():
             widget.destroy()
 
@@ -163,12 +164,12 @@ class FlashcardApp:
                                     command=self.start_quiz)
             quiz_button.place(x=580, y=450)
 
-            # button to go to the quiz directly
+            # button to go to the homepage directly
             go_homepage_button = tk.Button(self.screen, text="Back to Homepage", bg="dark sea green",fg="white", font=("Helvetica", 13),
                                            command=self.show_homepage)
             go_homepage_button.place(x=10, y=450)
         else:
-            self.show_quizPage()
+            self.show_quizPage() #when all the flashcards have been shown
 
 
     def show_next_card(self):
@@ -179,7 +180,7 @@ class FlashcardApp:
             self.current_index += 1
             self.show_flashcard(self.current_index)
         else:
-            self.show_quizPage()
+            self.show_quizPage() #when all the flashcards have been shown
 
 
     def show_previous_card(self):
@@ -195,7 +196,7 @@ class FlashcardApp:
 
     def start_quiz(self):
         """
-        This method is called when the quiz button is clicked.
+        This method is called when the start quiz button is clicked.
         """
         self.start_quiz_instance.start_quiz()
 
