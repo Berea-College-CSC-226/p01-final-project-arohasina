@@ -52,8 +52,15 @@ def flashcard_suite():
     print("Test 2: Testing the Flashcard class")
     try:
         dictionary = Dictionary("files/chapter_1_words.json")
+
         flashcard = Flashcard("my name is", dictionary)
         unittest(flashcard.word == "my name is" and flashcard.translation == "je m'appelle")
+
+        flashcard = Flashcard("i am from", dictionary) #updating flashcard object
+        unittest(flashcard.word == "i am from" and flashcard.translation == "je suis de")
+
+        flashcard = Flashcard("computer science", dictionary) #updating flashcard object
+        unittest(flashcard.word == "computer science" and flashcard.translation == "l'informatique")
     except Exception as e:
         unittest(False)  # If error occurs, the test fails
 
