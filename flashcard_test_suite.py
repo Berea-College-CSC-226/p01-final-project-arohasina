@@ -53,6 +53,7 @@ def flashcard_suite():
     try:
         dictionary = Dictionary("files/chapter_1_words.json")
 
+        #testing word and its translation
         flashcard = Flashcard("my name is", dictionary)
         unittest(flashcard.word == "my name is" and flashcard.translation == "je m'appelle")
 
@@ -61,6 +62,21 @@ def flashcard_suite():
 
         flashcard = Flashcard("computer science", dictionary) #updating flashcard object
         unittest(flashcard.word == "computer science" and flashcard.translation == "l'informatique")
+
+
+        # testing word and its example sentence
+        flashcard = Flashcard("my name is", dictionary) #updating flashcard object
+        unittest(flashcard.word == "my name is" and flashcard.example_sentence == "je m'appelle John")
+
+        flashcard = Flashcard("i am from", dictionary)  # updating flashcard object
+        unittest(flashcard.word == "i am from" and flashcard.example_sentence == "je suis de Madagascar")
+
+        flashcard = Flashcard("computer science", dictionary)  # updating flashcard object
+        unittest(flashcard.word == "computer science" and flashcard.example_sentence == "J'étudie l'informatique à l'université.")
+
+
+
+
     except Exception as e:
         unittest(False)  # If error occurs, the test fails
 
