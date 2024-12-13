@@ -78,7 +78,7 @@ class Quiz:
         y_gap = 40  # Vertical gap between each choice
 
         # Display answer choices as radio buttons
-        index = 0  #index counter
+        pos = 0  # Position counter for vertical placement of the buttons
         for choice in answer_choices:
             choice_button = tk.Radiobutton(
                 self.screen,
@@ -87,8 +87,8 @@ class Quiz:
                 value=choice,
                 font=("Helvetica", 20),
             )
-            choice_button.place(x=base_x, y=base_y + index * y_gap)
-            index += 1  # Increment index
+            choice_button.place(x=base_x, y=base_y + pos * y_gap)
+            pos += 1  # Increment position
 
         #function for the submit button
         def submit_answer():
@@ -99,11 +99,11 @@ class Quiz:
             self.screen, text="Submit", font=("Helvetica", 16), bg="dark sea green",
             command=submit_answer
         )
-        submit_button.place(x=base_x, y=base_y +12 + index * y_gap)
+        submit_button.place(x=base_x, y=base_y +12 + pos * y_gap)
 
         # back to Homepage button
         homepage_button= tk.Button(self.screen, text="Back to Homepage", font=("Helvetica", 16),command=self.go_to_Homepage)
-        homepage_button.place(x=base_x, y=base_y + 70 + index * y_gap)
+        homepage_button.place(x=base_x, y=base_y + 70 + pos * y_gap)
 
 
     def generate_quiz(self, index):
