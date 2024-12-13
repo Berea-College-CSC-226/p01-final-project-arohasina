@@ -1,0 +1,42 @@
+{
+  "my name is": {
+    "french": "je m'appelle",
+    "sentence": "je m'appelle John"
+  },
+  "i am from": {
+    "french": "je suis de",
+    "sentence": "je suis de Madagascar"
+  },
+  "i am a student in": {
+    "french": "je suis étudiant(e) en",
+    "sentence": "je suis étudiant(e) en informatique"
+  },
+  "his name is": {
+    "french": "il s'appelle",
+    "sentence": "Il s'appelle Jean"
+  },
+  "computer science": {
+    "french": "l'informatique",
+    "sentence": "J'étudie l'informatique à l'université."
+  },
+  "nationality": {
+    "french": "la nationalité",
+    "sentence": "Quelle est votre nationalité?"
+  },
+  "man": {
+    "french": "un homme",
+    "sentence": "Cet homme est professeur."
+  },
+  "woman": {
+    "french": "une femme",
+    "sentence": "Elle est une femme très gentille."
+  },
+  "father": {
+    "french": "un père",
+    "sentence": "Mon père est très grand."
+  },
+  "mother": {
+    "french": "une mère",
+    "sentence": "Sa mère est médecin."
+  }
+}
